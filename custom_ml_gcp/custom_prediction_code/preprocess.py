@@ -16,7 +16,7 @@ class Preprocessor(object):
         """
 
         # resize
-        image = cvl.resize(src = image, dsize = (224, 224), cv2.INTER_LINEAR)
+        image = cvl.resize(src = image, dsize = (224, 224), interpolation = cv2.INTER_LINEAR)
 
         # standardize
         image = (image - image.mean(axis = (0, 1, 2))) / image.std(axis = (0,1,2))
