@@ -1,7 +1,7 @@
 # import dependencies
 import os
 import tensorflow as tf
-from tensorflow.keras.layers import Flatten, Dense
+from tensorflow.keras.layers import Flatten, MaxPool2D, Conv2D, Dense
 
 def input_fn(path, height, width, batch_size, seed = 2021):
     """
@@ -63,6 +63,8 @@ def create_model(num_class, shape):
     """
     inputs = tf.keras.Input(shape = shape)
 
+    """
+    # VGG16 > 500MB for custom-routine. If really want to deploy, have to request quota increase
     # retrieve pretrained VGG16
     vgg16 = tf.keras.applications.VGG16(
             include_top = False, weights = 'imagenet', input_shape = shape)
@@ -73,6 +75,11 @@ def create_model(num_class, shape):
     outputs = Flatten()(outputs)
     outputs = Dense(4096, activation = 'relu', activity_regularizer = 'l2')(outputs)
     outputs = Dense(4096, activation = 'relu', activity_regularizer = 'l2')(outputs)
+    """
+    outputs = Conv2D(filters = 16, kernel_size = 3, strides = 2)(inputs)
+    outputs = MaxPool2D()(outputs)
+    outputs = Flatten()(outputs)
+    outputs = Dense(64, activation = 'relu', activity_regularizer = 'l2')(outputs)
     outputs = Dense(num_class, activation = 'softmax')(outputs)
 
     return tf.keras.Model(inputs = inputs, outputs = outputs)

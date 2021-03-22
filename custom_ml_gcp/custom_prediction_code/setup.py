@@ -1,7 +1,7 @@
 # import dependencies
 from setuptools import setup
 
-REQUIRED_PACKAGES = ['tensorflow==2.2', 'base64', 'opencv-python']
+REQUIRED_PACKAGES = ['opencv-python']
 
 setup(
         name = 'custom_prediction_code',

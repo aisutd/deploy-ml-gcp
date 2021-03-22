@@ -10,7 +10,7 @@ import tensorflow as tf
 class Predictor(object):
     def __init__(self, model, preprocessor):
         self._model = model
-        self._preprocessor = preproccessor
+        self._preprocessor = preprocessor
 
     def predict(self, instancse, **kwargs):
         """
@@ -44,7 +44,7 @@ class Predictor(object):
             An instance implementing this Predictor class
         """
         # load tf-keras model
-        model_path = os.path.join(model_dir, 'model')
+        model_path = os.path.join(model_dir, '1616390989.0')
         model = tf.keras.models.load_model(model_path)
 
         # load preprocessor
